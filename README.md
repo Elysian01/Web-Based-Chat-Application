@@ -1,6 +1,6 @@
 # Web-Based-Chat-Application
 
-Web Based Realtime chat app with web-sockets using Node.js, Express and Socket.io with Vanilla JS on the frontend with a custom UI
+Web-Based real-time chat app with web-sockets using Node.js, Express, and Socket.io with Vanilla JS on the frontend with a custom UI.
 
 ## Usage
 ```
