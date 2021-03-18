@@ -66,6 +66,7 @@ a {
 .chat-header h1 {
     font-family: 'Ranchers', cursive;
     letter-spacing: 2px;
+    color: #fff !important;
 }
 
 .chat-main {
