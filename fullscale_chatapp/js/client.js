@@ -20,19 +20,20 @@ var database = firebase.database();
 
 
 // Get username and room from URL
-const { email, room } = Qs.parse(location.search, {
+var { email, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true,
 });
-
+const room_name = room;
+room = "Chats/" + room
 client = { email: email, room: room }
     // console.log(email, room);
 
-const participant_room = room + "/" + "participant"
+const participant_room = room + "/" + "participant/"
 
 
 // Add room name to DOM
 function outputRoomName(room) {
-    roomName.innerText = room;
+    roomName.innerText = room_name;
 }
 
 // Add users to DOM
@@ -84,13 +85,20 @@ function outputMessage(message) {
     }
 }
 
+function get_problem_name() {
+    if (room.endsWith("del")) return "delivery"
+    else if (room.endsWith("oth")) return "other"
+    return "quality"
+}
 
 //Prompt the user before leave chat room
 document.getElementById('leave-btn').addEventListener('click', () => {
     const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
     if (leaveRoom) {
-        window.location = '../index.html';
-    } else {}
+        problem = get_problem_name()
+        get_participant_key(problem, email);
+
+    }
 });
 
 function add_participant(email) {
@@ -117,6 +125,36 @@ function get_participants() {
         outputUsers(participants);
     });
 }
+
+// when customer leaves the meeting his resolved_status is set to true
+function get_participant_key(problem, email) {
+    var participant_key;
+
+    database.ref(problem + "/").orderByChild("email").equalTo(email).limitToFirst(1).once('value').then((snapshot) => {
+        if (snapshot.val()) {
+            console.log(Object.keys(snapshot.val())[0])
+            participant_key = Object.keys(snapshot.val())[0]
+        }
+    }).then((result) => {
+        update_resolved_status(problem, participant_key);
+
+    })
+
+}
+
+
+function update_resolved_status(problem, participant_key) {
+    data = {
+        email: email,
+        resolved_status: true,
+        room_name: room
+    }
+    var updates = {}
+    updates[problem + "/" + participant_key] = data;
+    firebase.database().ref().update(updates).then((result) => { window.location = '../index.html'; });
+
+}
+
 
 // Listen for new user
 database.ref(participant_room).on("child_added", function(snapshot) {

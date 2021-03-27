@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ranchers&display=swap');
+:root {
+    --dark-color-a: #667aff;
+    --dark-color-b: #7386ff;
+    --light-color: #f8f8f8;
+    --success-color: #5cb85c;
+    --error-color: #d9534f;
+    --yellow-color: #ffc93c;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    background: var(--light-color);
+    margin: 20px;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.line {
+    width: 50%;
+    text-align: center;
+    margin-left: 25%;
+    border: 2px solid #000;
+    height: 2px;
+    color: gray;
+    background-color: rgb(83, 82, 82)
+}

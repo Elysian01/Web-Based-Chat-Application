@@ -44,5 +44,5 @@ def post_room_name_to_fb(email, problem):
 
 if __name__ == "__main__":
     email = "abhishek@gmail.com"
-    problem = "other"
+    problem = "delivery"
     post_room_name_to_fb(email, problem)
