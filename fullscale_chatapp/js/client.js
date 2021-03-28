@@ -106,7 +106,6 @@ function get_participant_key(problem, email) {
         update_resolved_status(problem, participant_key);
 
     })
-
 }
 
 
@@ -114,7 +113,7 @@ function update_resolved_status(problem, participant_key) {
     data = {
         email: email,
         resolved_status: true,
-        room_name: room
+        room_name: room_name
     }
     var updates = {}
     updates[problem + "/" + participant_key] = data;
