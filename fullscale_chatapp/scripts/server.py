@@ -42,8 +42,7 @@ def post_room_name_to_fb(email, problem):
     print(result)  # Returns Key ID
 
 
-if __name__ == "__main__":
-
+def sample_testing():
     testing = {
         1: {
             "email": "abhishek@gmail.com",
@@ -86,3 +85,7 @@ if __name__ == "__main__":
     for key, test in testing.items():
         # print(test["email"], test["problem"])
         post_room_name_to_fb(test["email"], test["problem"])
+
+
+if __name__ == "__main__":
+    sample_testing()

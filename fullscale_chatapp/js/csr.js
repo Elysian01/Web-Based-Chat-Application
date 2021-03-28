@@ -2,6 +2,7 @@ const deliveryBody = document.getElementById("delivery-body");
 const qualityBody = document.getElementById("quality-body");
 const otherBody = document.getElementById("other-body");
 const csr_email = "elysian@gmail.com"
+    // const csr_email = prompt("Please enter your email address")
 
 // http://127.0.0.1:5500/chat.html?email=abhig0209%40gmail.com&room=abcd
 function addRow(email, room_name, problem) {
@@ -50,8 +51,8 @@ delivery_ref.orderByChild("resolved_status").equalTo(false).on("value", (snapsho
     deliveryBody.innerHTML = ""
     for (var obj in snapshot.val()) {
         email = curr_ss[obj].email;
-        room_name = curr_ss[obj].room_name;
-        // console.log("Email: " + email + "   Room: " + room_name);
+        room_name = curr_ss[obj].room_name
+            // console.log("Email: " + email + "   Room: " + room_name);
         addRow(email, room_name, "delivery")
     };
 });
@@ -61,8 +62,8 @@ quality_ref.orderByChild("resolved_status").equalTo(false).on("value", (snapshot
     qualityBody.innerHTML = ""
     for (var obj in snapshot.val()) {
         email = curr_ss[obj].email;
-        room_name = curr_ss[obj].room_name;
-        // console.log("Email: " + email + "   Room: " + room_name);
+        room_name = curr_ss[obj].room_name
+            // console.log("Email: " + email + "   Room: " + room_name);
         addRow(email, room_name, "quality")
     };
 });
@@ -72,10 +73,12 @@ other_ref.orderByChild("resolved_status").equalTo(false).on("value", (snapshot) 
     otherBody.innerHTML = ""
     for (var obj in snapshot.val()) {
         email = curr_ss[obj].email;
-        room_name = curr_ss[obj].room_name;
+        room_name = curr_ss[obj].room_name
         addRow(email, room_name, "other")
     };
 });
+
+
 
 
 // 'once' method will only execute when we refresh the page
