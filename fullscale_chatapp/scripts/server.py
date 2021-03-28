@@ -3,7 +3,7 @@ import string
 from firebase import firebase
 
 db_url = "https://chat-app-5cf99-default-rtdb.firebaseio.com/"
-db_name = "chat-app-5cf99-default-rtdb/"
+db_name = "Chats/"
 firebase = firebase.FirebaseApplication(db_url, None)  # None is for auth
 
 
@@ -43,6 +43,46 @@ def post_room_name_to_fb(email, problem):
 
 
 if __name__ == "__main__":
-    email = "abhishek@gmail.com"
-    problem = "delivery"
-    post_room_name_to_fb(email, problem)
+
+    testing = {
+        1: {
+            "email": "abhishek@gmail.com",
+            "problem": "delivery"
+        },
+        2: {
+            "email": "abhishek2@gmail.com",
+            "problem": "delivery"
+        },
+        3: {
+            "email": "abhishek3@gmail.com",
+            "problem": "delivery"
+        },
+        4: {
+            "email": "abhishek4@gmail.com",
+            "problem": "quality"
+        },
+        5: {
+            "email": "abhishek5@gmail.com",
+            "problem": "quality"
+        },
+        6: {
+            "email": "abhishek6@gmail.com",
+            "problem": "quality"
+        },
+        7: {
+            "email": "abhishek7@gmail.com",
+            "problem": "other"
+        },
+        8: {
+            "email": "abhishek8@gmail.com",
+            "problem": "other"
+        },
+        9: {
+            "email": "abhishek9@gmail.com",
+            "problem": "other"
+        },
+    }
+
+    for key, test in testing.items():
+        # print(test["email"], test["problem"])
+        post_room_name_to_fb(test["email"], test["problem"])

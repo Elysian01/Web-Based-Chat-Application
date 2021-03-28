@@ -3,12 +3,31 @@ const qualityBody = document.getElementById("quality-body");
 const otherBody = document.getElementById("other-body");
 const csr_email = "elysian@gmail.com"
 
-function add_participant(room_name, email) {
-    const participant_room = room_name + "/" + "participant"
-    database.ref(participant_room).push().set({
-        "client_mail_id": email,
-    })
-}
+// function add_participant(room_name, email) {
+//     room_name = "Chats/" + room_name
+//     const participant_room = room_name + "/" + "participant";
+//     var participant_found = false;
+
+//     database.ref(participant_room).once("value", (snapshot) => {
+//         if (snapshot.exists()) {
+//             var arrayLength = Object.values(snapshot.val()).length;
+//             var obj = Object.values(snapshot.val())
+//             for (var i = 0; i < arrayLength; i++) {
+//                 if (obj[i].client_mail_id == email) {
+//                     participant_found = true;
+//                     break;
+//                 }
+//             }
+//         }
+
+//     }).then(() => {
+//         if (participant_found === false) {
+//             database.ref(participant_room).push().set({
+//                 "csr_mail_id": email,
+//             })
+//         }
+//     })
+// }
 
 // http://127.0.0.1:5500/chat.html?email=abhig0209%40gmail.com&room=abcd
 function addRow(email, room_name, problem) {
@@ -22,14 +41,12 @@ function addRow(email, room_name, problem) {
                 <td><a href="${link}"><button class="btn btn-warning" type="button">Chat</button></a></td>
                 </tr>
     `
+        // add_participant(room_name, csr_email);
     if (problem === "delivery") {
-        add_participant(room_name, email);
         deliveryBody.innerHTML += row_html;
     } else if (problem == "quality") {
-        add_participant(room_name, email);
         qualityBody.innerHTML += row_html;
     } else {
-        add_participant(room_name, email);
         otherBody.innerHTML += row_html;
     }
 }

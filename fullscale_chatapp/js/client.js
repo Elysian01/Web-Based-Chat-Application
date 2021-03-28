@@ -2,7 +2,8 @@ const chatForm = document.getElementById("chat-form");
 const chatMessages = document.querySelector(".chat-messages");
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
-
+var participants = new Set();
+var participant_found = false; // to check if user is already in room
 
 var firebaseConfig = {
     apiKey: "AIzaSyCYKCL6elNPZ8cSSH5wsJOBQddmMnSKnKc",
@@ -37,15 +38,14 @@ function outputRoomName(room) {
 }
 
 // Add users to DOM
-function outputUsers(users) {
-    userList.innerHTML = '';
-    users.forEach((user) => {
-        const li = document.createElement('li');
-        li.innerText = user;
-        userList.appendChild(li);
-    });
-
-}
+// function outputUsers(users) {
+//     userList.innerHTML = '';
+//     users.forEach((user) => {
+//         const li = document.createElement('li');
+//         li.innerText = user;
+//         userList.appendChild(li);
+//     });
+// }
 
 chatForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -101,30 +101,52 @@ document.getElementById('leave-btn').addEventListener('click', () => {
     }
 });
 
-function add_participant(email) {
-    database.ref(participant_room).push().set({
-        "client_mail_id": email,
-    })
-}
+// function add_participant(email) {
+//     database.ref(participant_room).once("value", (snapshot) => {
+//         if (snapshot.exists()) {
+//             var arrayLength = Object.values(snapshot.val()).length;
+//             var obj = Object.values(snapshot.val())
+//             for (var i = 0; i < arrayLength; i++) {
+//                 if (obj[i].client_mail_id == email) {
+//                     participant_found = true;
+//                     break;
+//                 }
+//             }
+//         }
+
+//     }).then(() => {
+//         if (participant_found === false) {
+//             database.ref(participant_room).push().set({
+//                 "client_mail_id": email,
+//             });
+//             console.log("user added in participant")
+//         }
+//     })
+// }
+
+// function _get_participant_list(obj, arrayLength) {
+//     for (var i = 0; i < arrayLength; i++) {
+//         participants.add(obj[i].client_mail_id)
+//             // console.log(obj[i].client_mail_id)
+//     }
+//     return [...participants]
+// }
+
+// // function to get all the participants from firebase and display in UI under Users section
+// function get_participants() {
+
+//     database.ref(participant_room).once('value', (snapshot) => {
+
+//         var arrayLength = Object.values(snapshot.val()).length;
+//         var obj = Object.values(snapshot.val())
+
+//         participants = _get_participant_list(obj, arrayLength);
+
+//     }).then(() => outputUsers(participants))
+
+// }
 
 
-// function to get all the participants from firebase and display in UI under Users section
-function get_participants() {
-    var participants = new Set()
-
-    database.ref(participant_room).once('value').then((snapshot) => {
-        var arrayLength = Object.values(snapshot.val()).length;
-        var obj = Object.values(snapshot.val())
-
-        for (var i = 0; i < arrayLength; i++) {
-            participants.add(obj[i].client_mail_id)
-        }
-        participants = [...participants]
-    }).then((result) => {
-        // console.log(participants)
-        outputUsers(participants);
-    });
-}
 
 // when customer leaves the meeting his resolved_status is set to true
 function get_participant_key(problem, email) {
@@ -164,8 +186,8 @@ database.ref(participant_room).on("child_added", function(snapshot) {
 
 function init() {
     outputRoomName(room);
-    add_participant(email);
-    get_participants()
+    // add_participant(email);
+    // get_participants()
 }
 
 init()
