@@ -1,10 +1,18 @@
 import random
 import string
 from firebase import firebase
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 db_url = "https://chat-app-5cf99-default-rtdb.firebaseio.com/"
 db_name = "Chats/"
 firebase = firebase.FirebaseApplication(db_url, None)  # None is for auth
+
+# Script Global Variables
+userGmail = "intmain1221@gmail.com"
+userGmailPassword = "intmain@11"
+receiverGmail = "abhig0209@gmail.com"
 
 
 def unique_token(lenght):
@@ -39,7 +47,43 @@ def post_room_name_to_fb(email, problem):
     }
 
     result = firebase.post(table_name, data)
-    print(result)  # Returns Key ID
+    return room_name
+
+
+def generate_link(email, room_name):
+    link = "http://127.0.0.1:5500/chat.html?email=" + \
+        email + "&room=" + room_name
+    link = link.replace("@", "%40")
+    return link
+
+
+def mail_service(client_email, problem):
+
+    gmail = userGmail
+    password = userGmailPassword
+    msg = MIMEMultipart()
+    msg['Subject'] = "Chat Room Token"
+    msg['From'] = gmail
+    msg['To'] = client_email
+
+    room_name = post_room_name_to_fb(client_email, problem)
+    link = generate_link(client_email, room_name)
+    # for body
+    body = """<h2 style  = 'font-family = tahoma;'>Thankyou for contacting us, we will solve your use please copy the room name and then, click below link and paste the room name</h2>"""
+    body += """<br>Room Token: """ + room_name
+    body += """<br><a href='""" + link + \
+        """'>Click here to chat with customer service representative </a>"""
+    body = MIMEText(body, 'html')
+    msg.attach(body)
+
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(gmail, password)
+        smtp.send_message(msg)
+
+    print("Token with room name send to: ", client_email)
 
 
 def sample_testing():
@@ -88,4 +132,5 @@ def sample_testing():
 
 
 if __name__ == "__main__":
-    sample_testing()
+    # sample_testing()
+    mail_service("abhig0209@gmail.com", "delivery")
