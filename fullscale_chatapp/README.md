@@ -2,30 +2,30 @@
 
 ## Overall
 - [ ] Customer Authentication
-- [ ] Customer Queue
-- [ ] Customer Side Chat page
-- [ ] Customer Service Representative(CSR) Page
-- [ ] Firebase Storage
+- [x] Customer Queue (firebase alreast stores according FCFS)
+- [x] Customer Side Chat page
+- [x] Customer Service Representative(CSR) Page
+- [x] Firebase Storage
 - [ ] Admin Page which can view all CSR chats  
 
 ## Client
 
 - [ ] Client Authentication
-- [ ] Customer Queue
-- [ ] Customer Side Chat page
+- [x] Customer Queue
+- [x] Customer Side Chat page
 
 ## Server
 
-- [ ] Storing All Chats.
-  - [ ] firebase tree => problem specific => CSR => Client and chat (wt time)
-- [ ] Customer Service Representative(CSR) Page
+- [x] Storing All Chats.
+  - [x] firebase tree => problem specific => CSR => Client and chat (wt time)
+- [x] Customer Service Representative(CSR) Page
 - [ ] Admin Page which can view all CSR chats  
+- [ ] When CSR clicks on `chat` change resolved status to `occupied`
 
 
 ## Usage
 ```
-npm install
-npm run dev
+Open Vscode live server 
 
-Go to localhost:3000
+For Admin and CSR => csr.html page
 ```
